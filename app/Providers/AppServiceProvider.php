@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(UrlGenerator $url)
     {
         if (config('app.env') !== 'local') {
+            
             $url->forceScheme('https');
 
          $this->app['request']->server->set('HTTPS','on');
