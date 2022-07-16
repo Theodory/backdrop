@@ -15,7 +15,7 @@ use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Validators\Failure;
 
-class CountryImport implements ToCollection,SkipsOnFailure,WithHeadingRow,WithChunkReading,ShouldQueue
+class CountryImport implements ToCollection, SkipsOnFailure, WithHeadingRow, WithChunkReading, ShouldQueue
 {
     /**
      * @param array $row
@@ -25,22 +25,27 @@ class CountryImport implements ToCollection,SkipsOnFailure,WithHeadingRow,WithCh
     public function collection(Collection $rows)
     {
         foreach ($rows as $key => $row) {
-            DB::beginTransaction();
-            $country = Country::create([
+            $data = [
                 'name' => $row['country_name'],
                 'code' => $row['country_code']
-            ]);
+            ];
+            $country = Country::where($data)->first();
 
-            $yearlyData = $row->slice(3);
-            $this->storeRecord($yearlyData,$country);
-            DB::commit();
+            if (is_null($country)) {
+                DB::beginTransaction();
+                $country = Country::create($data);
+
+                $yearlyData = $row->slice(3);
+                $this->storeRecord($yearlyData, $country);
+                DB::commit();
+            }
         }
     }
 
-    private function storeRecord($yearlyData,$country)
+    private function storeRecord($yearlyData, $country)
     {
         try {
-            foreach($yearlyData as $key=>$record){
+            foreach ($yearlyData as $key => $record) {
                 $countryRecord = Record::create([
                     'year' => $key,
                     'life_expectancy' => $record ?? 0
@@ -58,7 +63,6 @@ class CountryImport implements ToCollection,SkipsOnFailure,WithHeadingRow,WithCh
      */
     public function onFailure(Failure ...$failures)
     {
-
     }
 
     public function headingRow(): int
