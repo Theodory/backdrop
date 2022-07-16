@@ -1,11 +1,12 @@
-@props(['active'])
+<header class="text-gray-700 body-font border-b border-gray-200">
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+      <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0" href="{{route('home')}}">
+       <img src="{{asset('sc-logo.png')}}" alt="" class="w-16 bg-red-900 px-2">
+      </a>
 
-@php
-$classes = ($active ?? false)
-            ? 'inline-flex items-center px-1 pt-1 border-b-2 border-indigo-400 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-indigo-700 transition duration-150 ease-in-out'
-            : 'inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out';
-@endphp
-
-<a {{ $attributes->merge(['class' => $classes]) }}>
-    {{ $slot }}
-</a>
+      <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+        <a  href="{{route('home')}}" class="mr-5 hover:text-red-900 @if(request()->routeIs('home')) text-red-900 @endif">Home</a>
+        <a href="{{route('dashboard')}}" class="mr-5 hover:text-red-900 @if(request()->routeIs('dashboard')) text-red-900 @endif">Dashboard</a>
+      </nav>
+    </div>
+  </header>
