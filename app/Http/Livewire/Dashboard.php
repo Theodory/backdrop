@@ -9,11 +9,12 @@ class Dashboard extends Component
 {
     public $country ="Afghanistan",$countryRecord,$countries;
 
+    protected $listeners = ['updateReport' => 'updateData'];
+
+
     public function mount(){
         $this->countryRecord = $this->countryData();
-        // dd($this->countryData());
        $this->countries = $this->getCountries();
-        $this->country = '' ?? 'Afghanistan';
     }
 
     public function countryData()
@@ -28,7 +29,8 @@ class Dashboard extends Component
            
             return [
                 $record->year,
-                $record->life_expectancy
+                $record->life_expectancy,
+                $record->name
             ];
         })
         ->values()
@@ -37,8 +39,20 @@ class Dashboard extends Component
         return json_encode($data);
     }
 
+    public function updateData(){
+         $this->countryRecord = $this->countryData();
+         return view('livewire.dashboard',['countryRecord' =>$this->countryRecord]);
+    }
+
     public function getCountries(){
         return Country::orderBy('name','asc')->pluck('name');
+    }
+
+    public function changeCountryData(){
+        // $this->countryRecord = $this->countryData();
+        // dd($this->countryRecord);
+        // $this->emit('updateReport');
+       
     }
 
     public function render()
