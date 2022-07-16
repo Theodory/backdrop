@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('records', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('year');
-            $table->float('life_expectancy');
+            $table->float('life_expectancy')->default(0);
             $table->timestamps();
 
-            $table->foreignUuid('country_id')->constrained('countries')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignUuid('country_id')->nullable()->constrained('countries')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 
