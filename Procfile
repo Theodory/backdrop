@@ -1,5 +1,5 @@
 
-web: vendor/bin/heroku-php-apache2 -i request.ini public/
+web: vendor/bin/heroku-php-apache2 public/
 scheduler: while true; do php artisan schedule:run; sleep 60; done
 
 
