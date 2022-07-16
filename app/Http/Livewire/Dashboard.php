@@ -41,19 +41,12 @@ class Dashboard extends Component
 
     public function updateData(){
          $this->countryRecord = $this->countryData();
-         return view('livewire.dashboard',['countryRecord' =>$this->countryRecord]);
     }
 
     public function getCountries(){
         return Country::orderBy('name','asc')->pluck('name');
     }
 
-    public function changeCountryData(){
-        // $this->countryRecord = $this->countryData();
-        // dd($this->countryRecord);
-        // $this->emit('updateReport');
-       
-    }
 
     public function render()
     {
