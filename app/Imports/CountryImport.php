@@ -15,7 +15,7 @@ use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Validators\Failure;
 
-class CountryImport implements ToCollection, SkipsOnFailure, WithHeadingRow, WithChunkReading, ShouldQueue
+class CountryImport implements ToCollection, SkipsOnFailure, WithHeadingRow, WithChunkReading
 {
     /**
      * @param array $row
