@@ -14,8 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('records', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->string('year');
+            $table->float('life_expectancy');
             $table->timestamps();
+
+            $table->foreignUuid('country_id')->constrained('countries')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

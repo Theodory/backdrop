@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Record extends Model
 {
     use Uuid;
+
+    protected $guarded = ['id'];
 }
