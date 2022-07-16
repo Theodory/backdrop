@@ -10,4 +10,9 @@ class Record extends Model
     use Uuid;
 
     protected $guarded = ['id'];
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
 }
