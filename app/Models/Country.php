@@ -10,4 +10,9 @@ class Country extends Model
     use Uuid;
 
     protected $guarded = ['id'];
+
+    public function records()
+    {
+        return $this->hasMany(Record::class);
+    }
 }
